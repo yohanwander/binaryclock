@@ -12,6 +12,7 @@ ShiftRegisterPWM sr(2, 255); // first parameter number of 74HC second parameter 
 RTC_DS3231 rtc;
 char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 bool RTC=true;
+int RTCint=A3;
 
 // pour le son
 int HPpin = 5;
@@ -29,16 +30,14 @@ CapacitiveSensor   Bbottom = CapacitiveSensor(8,A0);  //flechebas
 CapacitiveSensor   Bcross = CapacitiveSensor(8,12);  // croix
 
 
-
-void setup()
-{
+void setup(){
   // on ouvre le port serie:
   Serial.begin(9600);  
   //on decalre la sortie du haut oparleur en output
   pinMode(HPpin, OUTPUT); 
   digitalWrite(HPpin, LOW); //on evite le gresillement
-  pinMode(Pintilt,INPUT_PULLUP);
-  pinMode(Lumsensor,INPUT); 
+  pinMode(Pintilt,INPUT_PULLUP); 
+  //pinMode(Lumsensor,INPUT); // rentre en conflit avec capacitivesensor .. cela marche sans la déclarer input..
 
 
   // setup of the 74HC595
@@ -51,22 +50,19 @@ void setup()
     if (! rtc.begin()) {
     Serial.println("Couldn't find RTC");
     RTC=false;
-    }
+    } 
 
-  
+     // test du son 
+      tone(HPpin , 440,250);
+      delay(300);
+      noTone(HPpin );
+      tone(HPpin , 349,250);
+      delay(300);
+      noTone(HPpin );
+      digitalWrite(HPpin, LOW);
 }
 
 void loop(){
-
-// test du son 
-
-tone(HPpin , 440,250);
-delay(300);
-noTone(HPpin );
-tone(HPpin , 349,250);
-delay(300);
-noTone(HPpin );
-digitalWrite(HPpin, LOW);
   
 // test des leds 
     for (uint8_t j = 0; j < 16; j++) { // on parcours les leds une a une
@@ -74,10 +70,10 @@ digitalWrite(HPpin, LOW);
       sr.set(j,128); // on allume juste la j 
       Serial.print( "test de la led n ");
       Serial.println(j);
-      delay(200);
+      delay(50);
     }
       Serial.print( "fading test ");
-    for (uint8_t j = 0; j < 255; j++) { // on parcours les leds une a une
+    for (uint8_t j = 0; j < 255; j+=5) { // on parcours les leds une a une
       for (uint8_t i = 0; i < 16; i++) { // on etein toutes les leds
       sr.set(i,j); // on allume juste la j 
     }
@@ -115,7 +111,7 @@ digitalWrite(HPpin, LOW);
       Serial.println();
   }
  // test du tilit
-  for (uint8_t j = 0; j < 300; j++){
+  for (uint8_t j = 0; j < 10; j++){
     Serial.print("tiltvalue ");
     Serial.println( digitalRead(Pintilt));
     Serial.print("lum sensor value ");
@@ -124,20 +120,19 @@ digitalWrite(HPpin, LOW);
     }  
 
 //// test des capterus capacitifs.
-// long tstart=millis();
-// long attente=100000;
-// while(millis()-tstart< attente){
-//    long total1 =  Btop.capacitiveSensor(30);
-//    long total2 =  Bbottom.capacitiveSensor(30);
-//    long total3 =  Bmiddle.capacitiveSensor(30);
-//    long total4 =  Bcross.capacitiveSensor(30);
-//
-//    Serial.print(total1);  Serial.print("\t");                // print sensor output 1
-//    Serial.print(total2);  Serial.print("\t");            // print sensor output 2
-//    Serial.print(total3);  Serial.print("\t");            // print sensor output 3
-//    Serial.println(total4);                                // print sensor output 3
-//
-//    delay(1);                             // arbitrary delay to limit data to serial port 
-// }
+ long tstart=millis();
+ long attente=100000;
+ Serial.println("test boutons capacitifs");// print sensor output 3
+ while(millis()-tstart< attente){
+    long total1 =  Btop.capacitiveSensor(200);
+    long total2 =  Bbottom.capacitiveSensor(200);
+    long total3 =  Bmiddle.capacitiveSensor(200);
+    long total4 =  Bcross.capacitiveSensor(200);
+    Serial.print(total1);  Serial.print("\t");                // print sensor output 1
+    Serial.print(total2);  Serial.print("\t");            // print sensor output 2
+    Serial.print(total3);  Serial.print("\t");            // print sensor output 3
+    Serial.println(total4); 
+    delay(10);                             // arbitrary delay to limit data to serial port 
+ }
 }
     
