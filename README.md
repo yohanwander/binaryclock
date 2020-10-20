@@ -6,6 +6,12 @@ ajouter la gestion des alamres
 ajouter le réglage de l'heure?
 sortir du menu la croix?
 
+Autre solution
+appuis long haut activer/desactiver alarme 1
+appuis long bas activer/desactiver alarme 2
+appui long rond changer heure, appuis court rond changer minute apuis court alarme 1 appui court alarme 2 et croix pour sortir menu ??
+
+
 
 A voir ajouter les interruptions provenant du RTC / cependant ce n'est pas sur une pin qui accepte les interruption, la 2 etant deja prise pour le pwm
 
