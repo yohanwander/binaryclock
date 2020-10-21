@@ -15,4 +15,10 @@ appui long rond changer heure, appuis court rond changer minute apuis court alar
 
 A voir ajouter les interruptions provenant du RTC / cependant ce n'est pas sur une pin qui accepte les interruption, la 2 etant deja prise pour le pwm
 
+a travailler
+-> faire une machine a etat pour passer d'un etat a lautre
+-> comment gerer les appui long et cour sans false trigger, genre pas transformer un long en deux courts.
+-> comment gérer l'alarme , stocker lheure et la comparer avec Timlib
+
+
 
