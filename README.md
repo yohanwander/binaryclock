@@ -8,3 +8,8 @@ un appui sur la fleche du haut affiche lalarme 1 si lappui est maintenu et que l
 un appui sur la fleche du bas affiche lalarme 2
 un appui long sur 0 permet de configurer les heures, un second appui long sur O permet de configurer les minutes, puis lalarme 1 puis laarme 2, a tout moment un appui sur la croix permet de sortir du menu de configuratio,
 quand lalarme sonne un appuis sur nimporte quelle touche viens leteintre
+
+
+#
+Je vais rajouter une fonction avec les anniversaires de la famile
+cela jour happy birthday :)
